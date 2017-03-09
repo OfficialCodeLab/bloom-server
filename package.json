@@ -1,0 +1,30 @@
+{
+  "name": "pear-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pear-node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/OfficialCodeLab/pear-node.git"
+  },
+  "author": "CodeLab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OfficialCodeLab/pear-node/issues"
+  },
+  "homepage": "https://github.com/OfficialCodeLab/pear-node#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "firebase": "^3.0.5",
+    "firebase-admin": "^4.0.3",
+    "multer": "^1.1.0",
+    "nodemailer": "^2.4.2",
+    "rekuire": "^0.1.9",
+    "swig-email-templates": "^3.0.0"
+  }
+}

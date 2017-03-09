@@ -1,0 +1,145 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:400,600i,700i|Roboto';
+
+html, body {
+  font-family: "Open Sans", sans-serif !important;
+}
+
+.main-block {
+	color: black;
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	max-width:600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*.outer-block {	
+	text-align: center;
+}*/
+
+.inner-block {
+	padding: 20px;
+	/*max-width:600px; */
+	text-align: center;  
+	/*border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border: 2px solid #eee;*/
+	position: relative;
+}
+
+.bloom-anchor {
+	color: #DFBFC0 !important;
+
+}
+
+.hr-pink {
+	background: #FBD3DB;
+	height: 2px;
+	width: 70%;
+}
+
+.pink-strip {
+	background-color: #FBD3DB;
+	color: #796F70;
+	text-align: center;
+	padding: 10px;
+	font-size: 12px;
+}
+
+.pink-strip a{
+	color: #796F70 !important;
+	text-decoration: none !important;
+}
+
+.grey-footer {
+	background-color: #BCBDBF;
+	padding: 20px 10px 40px 10px;
+	color: #796F70;
+	text-align: center;
+}
+
+.grey-footer a {
+	color: #796F70 !important;
+}
+
+.button-pink {
+	height: 40px;
+	width: 100px;
+	background-color: #fbd3db;
+	color: white;
+}
+
+.invite-background {
+	background: url('http://i.imgur.com/tDuzhqY.jpg');
+	background-size: auto 100%;
+	background-position: 0% 0% ;
+}
+
+.floating-pic {
+	position: absolute;
+	top: 5px;
+	right: 20px;
+}
+
+.profile-pic {
+  overflow:hidden;
+  left: 10px;
+  height:150px;
+  width:150px;
+  -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+          border-radius: 50%;
+  
+}
+
+.profile-pic img {
+  display: inline-block;
+  max-height: 170px;
+  border-radius: 50%;
+  image-rendering: -webkit-optimize-contrast;
+  -ms-interpolation-mode: nearest-neighbor; 
+}
+
+.profile-pic-outer {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  padding: 10px 10px 10px 10px;
+  height: 170px;
+  width: 170px;
+  -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+          border-radius: 50%;
+
+  -webkit-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.6);
+     -moz-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.6);
+      -ms-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.6);
+          box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.6);
+}
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 3.5em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
+
+p {
+	color: black;
+}

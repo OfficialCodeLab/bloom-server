@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		{% block head %}
+			<link rel="stylesheet" href="css/styles.css">
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+		{% endblock %}
+	</head>
+		<div class="main-block">
+			<div class="inner-block">
+				<!-- <img src="http://i.imgur.com/KFev4iO.png" style="height: 200px; width: auto"> -->
+				<img src="http://i.imgur.com/hsYIFHK.jpg" style="height: auto; width: 100%">
+				<br><br>
+				<p>Hello,</p>
+				<p>A new vendor has just signed up:<br><br>
+				The vendor account url is:<br>
+				<blockquote>https://console.firebase.google.com/project/pear-server/database/data/vendors/{{id}}</blockquote><br><br>
+				<p style="font-size: 14px;">
+					<a class="bloom-anchor" href="https://bloomweddings.co.za">www.bloomweddings.co.za</a><br><br>
+					<strong  style="color: #DFBFC0;">Bloom</strong>
+				</p>
+			</div>
+
+				<div class="pink-strip" style="height: 50px;">
+				</div>
+
+				<div class="grey-footer">
+					You have received this email because a vendor registered an account on Bloom. To unsubscribe from all emails from Bloom, <a href="#">click here</a>, or click here to <a href="#">update your email preferences.</a>.<br><br>&copy; 2017 Bloom. All Rights Reserved.
+				</div>
+		</div>		
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		{% block head %}
+			<link rel="stylesheet" href="css/styles.css">
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+		{% endblock %}
+	</head>
+		<div class="main-block">
+			<div class="inner-block">
+				<div class="invite-background">
+					<div class="floating-pic">
+						<div class="profile-pic-outer">
+					    	<div class="profile-pic"><img src={{imgUrl}}></div>
+					    </div>
+				    </div>
+				    <div style="padding-top: 200px; min-height: 500px;">
+						<p style="font-size: 16px;">Hi {{name}}</p>
+						<p style="font-size: 14px;"><br>{{_name}} has invited you to join their Inner Circle on Bloom</p><br>
+						<a href="https://bloomweddings.co.za"><button class="btn button-pink">Accept</button></a>
+					</div>
+				</div>
+				<div class="pink-strip" height="50px;">
+					<!-- <a href="#">Unsubscribe</a> | <a href="#">Edit Preferences</a> | <a href="#">Privacy Policy</a> -->
+				</div>
+
+				<div class="grey-footer">
+					You have received this email because you requested to register an account on Bloom. To unsubscribe from all emails from Bloom, <a href="#">click here</a>, or click here to <a href="#">update your email preferences.</a>.<br><br>&copy; 2017 Bloom. All Rights Reserved.
+				</div>
+		</div>
+</html>
