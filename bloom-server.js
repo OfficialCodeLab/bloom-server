@@ -271,46 +271,46 @@ admin.database().ref('vendorLogins').on('child_added', function(snapshot) {
 /*======================================================================*\
     If a new guest is created, email them
 \*======================================================================*/
-admin.database().ref('guests').on('child_added', function(snapshot) {
-    var guest = snapshot.val();
-    if(guest.mustEmail){
-        admin.database().ref('weddings/' + guest.wedding).once('value').then(function(_snapshot) {
-            admin.database().ref('users/' + _snapshot.val().user).once('value').then(function(__snapshot) {
-                var guestDetails = {
-                    name: guest.name,
-                    pearuser: __snapshot.val().name
-                };
-                templates.render('guestAdded.html', guestDetails, function(err, html, text) {
-                    var mailOptions = {
-                        from: "noreply@pear.life", // sender address
-                        replyTo: __snapshot.val().email || "noreply@pear.life", //Reply to address
-                        to: guest.email, // list of receivers
-                        subject: "Bloom - Added To Wedding Guest List", // Subject line
-                        html: html, // html body
-                        text: text  //Text equivalent
-                    };
+// admin.database().ref('guests').on('child_added', function(snapshot) {
+//     var guest = snapshot.val();
+//     if(guest.mustEmail){
+//         admin.database().ref('weddings/' + guest.wedding).once('value').then(function(_snapshot) {
+//             admin.database().ref('users/' + _snapshot.val().user).once('value').then(function(__snapshot) {
+//                 var guestDetails = {
+//                     name: guest.name,
+//                     pearuser: __snapshot.val().name
+//                 };
+//                 templates.render('guestAdded.html', guestDetails, function(err, html, text) {
+//                     var mailOptions = {
+//                         from: "noreply@pear.life", // sender address
+//                         replyTo: __snapshot.val().email || "noreply@pear.life", //Reply to address
+//                         to: guest.email, // list of receivers
+//                         subject: "Bloom - Added To Wedding Guest List", // Subject line
+//                         html: html, // html body
+//                         text: text  //Text equivalent
+//                     };
 
-                    // send mail with defined transport object
-                    transporter.sendMail(mailOptions, function(error, info) {
-                        if (error) {
-                            admin.database().ref('guests/' + snapshot.key).update({
-                                mustEmail: null
-                            });
-                            return console.log(error);
-                        }
-                        admin.database().ref('guests/' + snapshot.key).update({
-                            mustEmail: null
-                        });
-                        console.log('Message sent: ' + info.response);
-                    });
-                }); 
+//                     // send mail with defined transport object
+//                     transporter.sendMail(mailOptions, function(error, info) {
+//                         if (error) {
+//                             admin.database().ref('guests/' + snapshot.key).update({
+//                                 mustEmail: null
+//                             });
+//                             return console.log(error);
+//                         }
+//                         admin.database().ref('guests/' + snapshot.key).update({
+//                             mustEmail: null
+//                         });
+//                         console.log('Message sent: ' + info.response);
+//                     });
+//                 }); 
                 
 
-            });
-        });       
-    }
+//             });
+//         });       
+//     }
         
-});
+// });
 
 
 /*======================================================================*\
