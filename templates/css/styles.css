@@ -77,6 +77,43 @@ html, body {
 	background-position: 0% 0% ;
 }
 
+.circle {
+    background: #fbd3db;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.circle:hover {
+	cursor: pointer;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+	transition: 0.8s;
+	background: #ffb5c3;
+
+}
+
+.circle-number {
+    line-height: 150px;
+    text-align: center;
+    font-size: 48px;
+}
+
+a {
+	color: #808080 !important;
+	text-decoration: none !important;
+}
+
+.c-padding {
+	margin-bottom: 30px;
+}
+
+.circle-text-after {
+	padding: 15px;
+	font-size: 18px;
+}
+
 .floating-pic {
 	position: absolute;
 	top: 5px;
