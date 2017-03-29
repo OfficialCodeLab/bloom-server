@@ -113,7 +113,7 @@ admin.database().ref('messages').on('child_added', function(snapshot) {
     var message = snapshot.val();
     admin.database().ref('users/' + message.senderId).once('value').then(function(_snapshot) {
         var customMessage = {
-            // senderName: _snapshot.val().name,
+            senderName: _snapshot.val().name,
             receiverName: message.receiverName,
             messageText: message.html
         };
