@@ -113,38 +113,69 @@ admin.database().ref('messages').on('child_added', function(snapshot) {
     var message = snapshot.val();
     var mailTo = "";
     if(message.to) {
-       mailTo = message.to
-    } else { 
-      mailTo = "support@bloomweddings.co.za";
-    }
-    admin.database().ref('users/' + message.senderId).once('value').then(function(_snapshot) {
-        var customMessage = {
-            senderName: _snapshot.val().name,
-            receiverName: message.receiverName,
-            messageText: message.html
-        };
-        templates.render('messageRequest.html', customMessage, function(err, html, text) {
-            var mailOptions = {
-                from: message.from, // sender address
-                replyTo: message.from, //Reply to address
-                to: mailTo, // list of receivers
-                subject: message.subject, // Subject line
-                html: html, // html body
-                text: text  //Text equivalent
+        mailTo = message.to
+        admin.database().ref('users/' + message.senderId).once('value').then(function(_snapshot) {
+            var customMessage = {
+                senderName: _snapshot.val().name,
+                receiverName: message.receiverName,
+                messageText: message.html
             };
+            templates.render('messageRequest.html', customMessage, function(err, html, text) {
+                var mailOptions = {
+                    from: message.from, // sender address
+                    replyTo: message.from, //Reply to address
+                    to: mailTo, // list of receivers
+                    subject: message.subject, // Subject line
+                    html: html, // html body
+                    text: text  //Text equivalent
+                };
 
-            // send mail with defined transport object
-            transporter.sendMail(mailOptions, function(error, info) {
-                if (error) {
-                    console.log("MESSAGE REQUEST ERROR");
-                    return console.log(error);
-                }
-                console.log('Message sent: ' + info.response);
-                admin.database().ref('messages/' + snapshot.key).remove();
+                // send mail with defined transport object
+                transporter.sendMail(mailOptions, function(error, info) {
+                    if (error) {
+                        console.log("MESSAGE REQUEST ERROR");
+                        return console.log(error);
+                    }
+                    console.log('Message sent: ' + info.response);
+                    admin.database().ref('messages/' + snapshot.key).remove();
+                });
             });
+          
         });
-      
-    });
+    } else { 
+        if(message.isSent){
+            // Do nothing
+        } else {
+            mailTo = "support@bloomweddings.co.za";
+            var customMessage = {
+                senderName: "Anonymous User",
+                receiverName: "Bloom Support",
+                messageText: message.html
+            };
+            templates.render('messageRequest.html', customMessage, function(err, html, text) {
+                var mailOptions = {
+                    from: message.from, // sender address
+                    replyTo: message.from, //Reply to address
+                    to: mailTo, // list of receivers
+                    subject: message.subject, // Subject line
+                    html: html, // html body
+                    text: text  //Text equivalent
+                };
+
+                // send mail with defined transport object
+                transporter.sendMail(mailOptions, function(error, info) {
+                    if (error) {
+                        console.log("MESSAGE REQUEST ERROR");
+                        return console.log(error);
+                    }
+                    console.log('Message sent: ' + info.response);                    
+                    admin.database().ref('messages/' + snapshot.key).update({
+                        isSent: true
+                    });
+                });
+            });
+        }
+    }
         
 });
 
