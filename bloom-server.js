@@ -111,6 +111,12 @@ admin.database().ref('users').on('child_changed', function(snapshot) {
 admin.database().ref('messages').on('child_added', function(snapshot) {
     console.log("New message request");
     var message = snapshot.val();
+    var mailTo = "";
+    if(message.to) {
+       mailTo = message.to
+    } else { 
+      mailTo = "support@bloomweddings.co.za";
+    }
     admin.database().ref('users/' + message.senderId).once('value').then(function(_snapshot) {
         var customMessage = {
             senderName: _snapshot.val().name,
@@ -121,7 +127,7 @@ admin.database().ref('messages').on('child_added', function(snapshot) {
             var mailOptions = {
                 from: message.from, // sender address
                 replyTo: message.from, //Reply to address
-                to: message.to || "courtney@codelab.io", // list of receivers
+                to: mailTo, // list of receivers
                 subject: message.subject, // Subject line
                 html: html, // html body
                 text: text  //Text equivalent
@@ -159,8 +165,8 @@ admin.database().ref('users').on('child_added', function(snapshot) {
         } else { // USER
             templates.render('accountCreationUser.html', userDetails, function(err, html, text) {
                 var mailOptions = {
-                    from: "noreply@pear.life", // sender address
-                    replyTo: "noreply@pear.life", //Reply to address
+                    from: "noreply@bloomweddings.co.za", // sender address
+                    replyTo: "noreply@bloomweddings.co.za", //Reply to address
                     to: user.email, // list of receivers
                     subject: "Bloom - User Account Created", // Subject line
                     html: html, // html body
@@ -203,8 +209,8 @@ admin.database().ref('vendorLogins').on('child_added', function(snapshot) {
 
         templates.render('accountCreationVendor.html', userDetails, function(err, html, text) {
             var mailOptions = {
-                from: "noreply@pear.life", // sender address
-                replyTo: "noreply@pear.life", //Reply to address
+                from: "noreply@bloomweddings.co.za", // sender address
+                replyTo: "noreply@bloomweddings.co.za", //Reply to address
                 to: login.email, // list of receivers
                 subject: "Bloom - Vendor Account Created", // Subject line
                 html: html, // html body
@@ -224,8 +230,8 @@ admin.database().ref('vendorLogins').on('child_added', function(snapshot) {
         /*
         templates.render('accountCreation.html', userDetails, function(err, html, text) {
             var mailOptions = {
-                from: "noreply@pear.life", // sender address
-                replyTo: "noreply@pear.life", //Reply to address
+                from: "noreply@bloomweddings.co.za", // sender address
+                replyTo: "noreply@bloomweddings.co.za", //Reply to address
                 to: login.email, // list of receivers
                 subject: "Pear - Vendor Account Created", // Subject line
                 html: html, // html body
@@ -246,8 +252,8 @@ admin.database().ref('vendorLogins').on('child_added', function(snapshot) {
 
         templates.render('accountCreationBcc.html', userDetails, function(err, html, text) {
             var mailOptions2 = {
-                from: "noreply@pear.life", // sender address
-                replyTo: "noreply@pear.life", //Reply to address
+                from: "noreply@bloomweddings.co.za", // sender address
+                replyTo: "noreply@bloomweddings.co.za", //Reply to address
                 to: "bruce@pear.life, ineke@pear.life, info@pear.life", // list of receivers
                 subject: "Bloom - Vendor Account Created", // Subject line
                 html: html, // html body
@@ -332,8 +338,8 @@ admin.database().ref('innerCircleInvites').on('child_added', function(snapshot) 
     if(true){ // Edit preferences will change this
         templates.render('innerCircleInvite.html', details, function(err, html, text) {
             var mailOptions = {
-                from: "noreply@pear.life", // sender address
-                replyTo: "noreply@pear.life", //Reply to address
+                from: "noreply@bloomweddings.co.za", // sender address
+                replyTo: "noreply@bloomweddings.co.za", //Reply to address
                 to: invite.emailId, // list of receivers
                 subject: "Bloom - Inner Circle Invite", // Subject line
                 html: html, // html body
