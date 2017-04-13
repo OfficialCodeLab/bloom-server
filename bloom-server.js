@@ -143,38 +143,34 @@ admin.database().ref('messages').on('child_added', function(snapshot) {
           
         });
     } else { 
-        if(message.isSent){
-            // Do nothing
-        } else {
-            mailTo = "support@bloomweddings.co.za";
-            var customMessage = {
-                senderName: "Anonymous User",
-                receiverName: "Bloom Support",
-                messageText: message.html
+       
+        mailTo = "support@bloomweddings.co.za";
+        var customMessage = {
+            senderName: "Anonymous User",
+            receiverName: "Bloom Support",
+            messageText: message.html
+        };
+        templates.render('messageRequest.html', customMessage, function(err, html, text) {
+            var mailOptions = {
+                from: message.from, // sender address
+                replyTo: message.from, //Reply to address
+                to: mailTo, // list of receivers
+                subject: message.subject, // Subject line
+                html: html, // html body
+                text: text  //Text equivalent
             };
-            templates.render('messageRequest.html', customMessage, function(err, html, text) {
-                var mailOptions = {
-                    from: message.from, // sender address
-                    replyTo: message.from, //Reply to address
-                    to: mailTo, // list of receivers
-                    subject: message.subject, // Subject line
-                    html: html, // html body
-                    text: text  //Text equivalent
-                };
 
-                // send mail with defined transport object
-                transporter.sendMail(mailOptions, function(error, info) {
-                    if (error) {
-                        console.log("MESSAGE REQUEST ERROR");
-                        return console.log(error);
-                    }
-                    console.log('Message sent: ' + info.response);                    
-                    admin.database().ref('messages/' + snapshot.key).update({
-                        isSent: true
-                    });
-                });
+            // send mail with defined transport object
+            transporter.sendMail(mailOptions, function(error, info) {
+                if (error) {
+                    console.log("MESSAGE REQUEST ERROR");
+                    return console.log(error);
+                }
+                console.log('Message sent: ' + info.response);                    
+                admin.database().ref('messages/' + snapshot.key).remove();
             });
-        }
+        });
+        
     }
         
 });
