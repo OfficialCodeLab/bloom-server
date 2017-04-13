@@ -116,7 +116,7 @@ admin.database().ref('messages').on('child_added', function(snapshot) {
         mailTo = message.to
         admin.database().ref('users/' + message.senderId).once('value').then(function(_snapshot) {
             var customMessage = {
-                senderName: _snapshot.val().name,
+                senderName: _snapshot.val().name || "User",
                 receiverName: message.receiverName,
                 messageText: message.html
             };
