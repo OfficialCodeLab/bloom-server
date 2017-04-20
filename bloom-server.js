@@ -3,6 +3,7 @@
     Author: CodeLab (http://www.codelab.io)
     Version: BETA 1.0.0
 \*======================================================================*/
+"use strict";
 console.log("======================================================================\n" +
     "Bloom Node Server\n" +
     "Author: CodeLab (http://www.codelab.io)\n" +
