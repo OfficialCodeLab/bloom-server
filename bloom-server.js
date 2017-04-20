@@ -281,7 +281,7 @@ admin.database().ref('vendorLogins').on('child_added', function(snapshot) {
             var mailOptions2 = {
                 from: "noreply@bloomweddings.co.za", // sender address
                 replyTo: "noreply@bloomweddings.co.za", //Reply to address
-                to: "bruce@pear.life, ineke@pear.life, info@pear.life", // list of receivers
+                to: "bruce@pear.life, ineke@pear.life" // list of receivers
                 subject: "Bloom - Vendor Account Created", // Subject line
                 html: html, // html body
                 text: text  //Text equivalent
@@ -388,7 +388,8 @@ admin.database().ref('innerCircleInvites').on('child_added', function(snapshot) 
 });
 
 /*======================================================================*\
-    If a cat-item is deleted, removed favourites from users
+    If a cat-item is deleted, removed favourites from users, remove
+    from provinces and categories
 \*======================================================================*/
 admin.database().ref('catItems').on('child_removed', function(snapshot) {
     var item = snapshot.val();                  //the deleted item
@@ -408,7 +409,60 @@ admin.database().ref('catItems').on('child_removed', function(snapshot) {
             });
         }
     }
+
+    //Remove cat-item from assigned category and province
+
+    var assignedCategory = item.category;
+    //Get the category
+    admit.database().ref('categories/' + assignedCategory).once('value').then(function(_snapshot) {
+        var cat = _snapshot.val();
+        var catItems = cat.catItems;
+        delete catItems[fkey];                  //Delete cat-item key-value pair
+        admin.database().ref('categories/' + assignedCategory).update({
+            catItems: catItems
+        });
+    });
+
+    var assignedProvince = item.province;
+    //Get the Province
+    admit.database().ref('provinces/' + assignedProvince).once('value').then(function(_snapshot) {
+        var prov = _snapshot.val();
+        var catItems = prov.catItems;
+        delete catItems[fkey];                  //Delete cat-item key-value pair
+        admin.database().ref('provinces/' + assignedProvince).update({
+            catItems: catItems
+        });
+    });
 });
+
+/*======================================================================*\
+    If a wedding is deleted, remove tasks and guests
+\*======================================================================*/
+admin.database().ref('weddings').on('child_removed', function(snapshot) {
+    var item = snapshot.val();                  //the deleted item
+    var assignedTasks = item.tasks;             //list of tasks
+
+    //Iterate through all tasks
+    for (var key in assignedTasks){
+        if (assignedTasks.hasOwnProperty(key)) {
+            //Get the task
+            let del_ref = admin.database().ref('tasks/' + key);
+            del_ref.remove();
+        }
+    }
+
+    var assignedGuests = item.guests;             //list of guests
+
+    //Iterate through all tasks
+    for (var key in assignedGuests){
+        if (assignedGuests.hasOwnProperty(key)) {
+            //Get the task
+            let del_ref = admin.database().ref('guests/' + key);
+            del_ref.remove();
+        }
+    }
+});
+
 
 /*======================================================================*\
     Scheduled tasks - This breaks server, leave out for now
