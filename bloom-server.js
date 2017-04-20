@@ -446,7 +446,7 @@ admin.database().ref('weddings').on('child_removed', function(snapshot) {
     for (var key in assignedTasks){
         if (assignedTasks.hasOwnProperty(key)) {
             //Get the task
-            let del_ref = admin.database().ref('tasks/' + key);
+            var del_ref = admin.database().ref('tasks/' + key);
             del_ref.remove();
         }
     }
@@ -457,7 +457,7 @@ admin.database().ref('weddings').on('child_removed', function(snapshot) {
     for (var key in assignedGuests){
         if (assignedGuests.hasOwnProperty(key)) {
             //Get the task
-            let del_ref = admin.database().ref('guests/' + key);
+            var del_ref = admin.database().ref('guests/' + key);
             del_ref.remove();
         }
     }
