@@ -282,7 +282,7 @@ admin.database().ref('vendorLogins').on('child_added', function(snapshot) {
             var mailOptions2 = {
                 from: "noreply@bloomweddings.co.za", // sender address
                 replyTo: "noreply@bloomweddings.co.za", //Reply to address
-                to: "bruce@pear.life, ineke@pear.life", // list of receivers
+                to: "bruce@bloomweddings.co.za, ineke@bloomweddings.co.za", // list of receivers
                 subject: "Bloom - Vendor Account Created", // Subject line
                 html: html, // html body
                 text: text  //Text equivalent
