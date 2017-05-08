@@ -22,6 +22,7 @@
     "express": "^4.14.0",
     "firebase": "^3.0.5",
     "firebase-admin": "^4.0.3",
+    "moment": "^2.18.1",
     "multer": "^1.1.0",
     "nodemailer": "^2.4.2",
     "rekuire": "^0.1.9",

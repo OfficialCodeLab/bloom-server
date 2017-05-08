@@ -18,6 +18,7 @@ var nodemailer = require('nodemailer');
 var admin = require("firebase-admin");
 var rek = require('rekuire');
 var express = require("express");
+var moment = require('moment');
 // var schedule = require('node-schedule');
 var templates = new EmailTemplates({
   root: path.join(__dirname, "templates")
@@ -116,29 +117,48 @@ admin.database().ref('messages').on('child_added', function(snapshot) {
     if(message.to) {
         mailTo = message.to
         admin.database().ref('users/' + message.senderId).once('value').then(function(_snapshot) {
-            var customMessage = {
-                senderName: _snapshot.val().name || "User",
-                receiverName: message.receiverName,
-                messageText: message.html
-            };
-            templates.render('messageRequest.html', customMessage, function(err, html, text) {
-                var mailOptions = {
-                    from: message.from, // sender address
-                    replyTo: message.from, //Reply to address
-                    to: mailTo, // list of receivers
-                    subject: message.subject, // Subject line
-                    html: html, // html body
-                    text: text  //Text equivalent
-                };
-
-                // send mail with defined transport object
-                transporter.sendMail(mailOptions, function(error, info) {
-                    if (error) {
-                        console.log("MESSAGE REQUEST ERROR");
-                        return console.log(error);
+            admin.database().ref('weddings/' + message.senderId).once('value').then(function(__snapshot) {
+                var guestsC = "Unknown";
+                var weddingDate = "Unknown";
+                if(message.sendInfo) {
+                    var wedding = __snapshot.val();
+                    if(wedding.estimatedGuests) {
+                        guestsC = wedding.estimatedGuests;
+                    } else if(wedding.guestsTotal){
+                        guestsC = wedding.guestsTotal;
                     }
-                    console.log('Message sent: ' + info.response);
-                    admin.database().ref('messages/' + snapshot.key).remove();
+                    try{
+                        var weddingDate = moment(wedding.weddingDate);
+                        weddingDateFormatted = weddingDate.format('Do MMM YYYY');
+                    } catch (ex) {}  
+                }
+
+                var customMessage = {
+                    senderName: _snapshot.val().name || "User",
+                    receiverName: message.receiverName,
+                    guestCount: guestC,
+                    weddingDate: weddingDateFormatted
+                    messageText: message.html
+                };
+                templates.render('messageRequestVendor.html', customMessage, function(err, html, text) {
+                    var mailOptions = {
+                        from: message.from, // sender address
+                        replyTo: message.from, //Reply to address
+                        to: mailTo, // list of receivers
+                        subject: message.subject, // Subject line
+                        html: html, // html body
+                        text: text  //Text equivalent
+                    };
+
+                    // send mail with defined transport object
+                    transporter.sendMail(mailOptions, function(error, info) {
+                        if (error) {
+                            console.log("MESSAGE REQUEST ERROR");
+                            return console.log(error);
+                        }
+                        console.log('Message sent: ' + info.response);
+                        admin.database().ref('messages/' + snapshot.key).remove();
+                    });
                 });
             });
           
