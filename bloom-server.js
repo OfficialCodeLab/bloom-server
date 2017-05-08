@@ -118,14 +118,14 @@ admin.database().ref('messages').on('child_added', function(snapshot) {
         mailTo = message.to
         admin.database().ref('users/' + message.senderId).once('value').then(function(_snapshot) {
             admin.database().ref('weddings/' + message.senderId).once('value').then(function(__snapshot) {
-                var guestsC = "Unknown";
+                var guestC = "Unknown";
                 var weddingDate = "Unknown";
                 if(message.sendInfo) {
                     var wedding = __snapshot.val();
                     if(wedding.estimatedGuests) {
-                        guestsC = wedding.estimatedGuests;
+                        guestC = wedding.estimatedGuests;
                     } else if(wedding.guestsTotal){
-                        guestsC = wedding.guestsTotal;
+                        guestC = wedding.guestsTotal;
                     }
                     try{
                         var weddingDate = moment(wedding.weddingDate);
