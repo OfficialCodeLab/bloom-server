@@ -137,7 +137,7 @@ admin.database().ref('messages').on('child_added', function(snapshot) {
                     senderName: _snapshot.val().name || "User",
                     receiverName: message.receiverName,
                     guestCount: guestC,
-                    weddingDate: weddingDateFormatted
+                    weddingDate: weddingDateFormatted,
                     messageText: message.html
                 };
                 templates.render('messageRequestVendor.html', customMessage, function(err, html, text) {
