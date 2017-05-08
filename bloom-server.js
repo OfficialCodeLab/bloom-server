@@ -119,7 +119,7 @@ admin.database().ref('messages').on('child_added', function(snapshot) {
         admin.database().ref('users/' + message.senderId).once('value').then(function(_snapshot) {
             admin.database().ref('weddings/' + message.senderId).once('value').then(function(__snapshot) {
                 var guestC = "Unknown";
-                var weddingDate = "Unknown";
+                var weddingDateFormatted = "Unknown";
                 if(message.sendInfo) {
                     var wedding = __snapshot.val();
                     if(wedding.estimatedGuests) {
